@@ -1,0 +1,17 @@
+/* client/style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.scanner {
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+video {
+    width: 100%;
+    border: 2px solid #000;
+}

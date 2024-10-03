@@ -1,0 +1,73 @@
+<!-- client/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Conference Connection</title>
+    <!-- Подключение библиотеки html5-qrcode -->
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <h1>Conference Connection Portal</h1>
+    
+    <!-- Кнопки для выбора функционала -->
+    <button id="scan-qr-button">Scan QR Code</button>
+    <button id="auto-connect-button">Auto Connect Device</button>
+
+    <!-- Блоки для вывода информации -->
+    <div id="reader" style="width: 300px; display: none;"></div>
+    <div id="connection-status" style="display: none;">Waiting for device recognition...</div>
+
+    <!-- Скрипты -->
+    <script src="script-html5.js"></script>
+    <script src="device-connect.js"></script>
+    
+    <script>
+        // Управление выбором функционала
+        document.getElementById("scan-qr-button").addEventListener("click", function() {
+            document.getElementById("reader").style.display = "block";
+            startQrScanner(); // Запускаем функцию сканирования QR-кода
+        });
+
+        document.getElementById("auto-connect-button").addEventListener("click", function() {
+            document.getElementById("connection-status").style.display = "block";
+            startDeviceAutoConnect(); // Запускаем функцию автоматического подключения устройства
+        });
+    </script>
+</body>
+</html>
+
+    <!-- 
+    <div class="scanner">
+        <video id="preview"></video>
+    </div>
+    <script src="script.js"></script>
+    -->
+ <!-- client/script-html5.js -->
+<script>
+    var video = document.getElementById("preview");
+    var reader = new QRCodeReader();
+
+    function handleScan(result) {
+        console.log("Scanned: " + result);
+        document.getElementById("reader").style.display = "none";
+        document.getElementById("connection-status").style.display = "block";
+        // Продолжить автоматическое подключение устройства
+    }
+
+    reader.then(function(qrReader) {
+        video.addEventListener("playing", function() {
+            qrReader.decodeFromVideoDevice(video).then(handleScan, function(err) {
+                console.error(err);
+            });
+        });
+    });
+</script>
+
+
+
+
+
+

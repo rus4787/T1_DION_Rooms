@@ -1,0 +1,30 @@
+# docker-compose.yml
+
+version: '3.8'
+
+services:
+  server:
+    build: ./server
+    container_name: qr_code_server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/app
+
+  client:
+    build: ./client
+    container_name: qr_code_client
+    ports:
+      - "8080:80"
+    volumes:
+      - ./client:/usr/share/nginx/html
+
+  device_recognition:
+    build:
+      context: ./server
+      dockerfile: Dockerfile_device
+    container_name: device_recognition_server
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./server:/app
